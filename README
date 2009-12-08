@@ -1,0 +1,117 @@
+NAME
+    "Text::Corpus::NewYorkTimes::Document" - Parse NYT article for research.
+
+SYNOPSIS
+      use Text::Corpus::NewYorkTimes;
+      use Data::Dump qw(dump);
+      use Log::Log4perl qw(:easy);
+      Log::Log4perl->easy_init ($INFO);
+      my $corpus = Text::Corpus::NewYorkTimes->new (fileList => $fileList, corpusDirectory => $corpusDirectory);
+      my $document = $corpus->getDocument (index => 0);
+      dump $document->getBody;
+      dump $document->getCategories;
+      dump $document->getContent;
+      dump $document->getDate;
+      dump $document->getDescription;
+      dump $document->getTitle;
+      dump $document->getUri;
+
+DESCRIPTION
+    "Text::Corpus::NewYorkTimes::Document" provides methods for accessing
+    specific portions of news articles from the New York Times corpus.
+
+CONSTRUCTOR
+  "new"
+    The constructor "new" creates an instance of the
+    "Text::Corpus::NewYorkTimes::Document" class with the following
+    parameters:
+
+    "filename"
+         filename => '...'
+
+        "filename" is the path name to the XML document that is to be
+        parsed.
+
+    "dtdname"
+         dtdname => '...'
+
+        "dtdname" is the path name to the data type definition file provided
+        with the corpus; it is usually something like
+        ".../nyt_corpus/dtd/nitf-3-3.dtd". If not defined an attempt is made
+        to located it using the path provided by "filename".
+
+METHODS
+  "getBody"
+     getBody ()
+
+    "getBody" returns an array reference of strings of sentences that are
+    the body of the article.
+
+  "getCategories"
+     getCategories (type => 'all')
+
+    The method "getCategories" returns the categories of "type" assigned to
+    the document, where "type" must be 'all', 'controlled', or
+    'uncontrolled'. The 'uncontrolled' categories are those assigned to the
+    document by an editor without machine assistance, the 'controlled'
+    categories are those assigned with machine assistance. The type 'all'
+    returns the union of the categories from 'controlled' and
+    'uncontrolled'. The default is 'all'.
+
+  "getContent"
+     getContent ()
+
+    The method "getContent" returns the content of the document as an array
+    reference of the text where each item in the array is a sentence, with
+    the first sentence being the headline or title of the article. If the
+    lead sentence equals the headline of the article, then the headline is
+    not prefixed to the list.
+
+  "getDate"
+     getDate (format => '%g')
+
+    "getDate" returns the date and time of the article in the format
+    speficied by "format" that uses the print directives of
+    Date::Manip::Date. The default is to return the date and time in RFC2822
+    format.
+
+  "getDescription"
+      getDescription ()
+
+    "getDescription" returns an array reference of strings of sentences that
+    describe the articles content.
+
+  "getTitle"
+     getTitle ()
+
+    "getTitle" returns an array reference of strings, usually one, of the
+    title of the article.
+
+  "getUri"
+      getUri (type => 'file')
+
+    "getUri" returns the URI of the document where "type" must be 'file' or
+    'url'. If "type" is 'file', the file path of the document is returned;
+    otherwise the URL of the document is returned. The default is 'file'.
+
+INSTALLATION
+    For installation instructions see Text::Corpus::NewYorkTimes.
+
+AUTHOR
+     Jeff Kubina<jeff.kubina@gmail.com>
+
+COPYRIGHT
+    Copyright (c) 2009 Jeff Kubina. All rights reserved. This program is
+    free software; you can redistribute it and/or modify it under the same
+    terms as Perl itself.
+
+    The full text of the license can be found in the LICENSE file included
+    with this module.
+
+KEYWORDS
+    nyt, new york times, english corpus, information processing
+
+SEE ALSO
+    Log::Log4perl, Text::Corpus::NewYorkTimes, XML::LibXML,
+    XML::LibXML::XPathContext
+
