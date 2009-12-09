@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Text-Corpus-NewYorkTimes
-version:            1.00
+version:            1.01
 abstract:           Interface to New York Times corpus.
 author:
     - Jeff Kubina (jeff.kubina@gmail.com)
